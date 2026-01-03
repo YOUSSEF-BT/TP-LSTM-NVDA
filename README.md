@@ -1,67 +1,101 @@
 # TP — Prédiction du cours de NVIDIA (NVDA) avec LSTM
 
-## À propos
+## 1) À propos
 Ce dépôt contient un **TP réalisé en cours avec le professeur**.  
-➡️ **Ce n’est pas un projet personnel**, mais un travail pédagogique.
+➡️ **Ce n’est pas un projet personnel**, mais un travail pédagogique (exercice académique).
 
 ---
 
-## Contenu du dépôt
-- **Notebook (.ipynb)** : le TP complet (chargement des données, préparation, entraînement LSTM, graphiques).
-- **Dataset** : `NVDIA_historical_data.csv`  
-  Données historiques de l’action **NVIDIA (NVDA)** utilisées dans le notebook.
+## 2) Fichiers du dépôt
+- `LTSM_Scraping_Nvdia.ipynb` : le notebook du TP (chargement des données, préparation, entraînement LSTM, graphiques).
+- `NVDIA_historical_data.csv` : dataset utilisé par le notebook (données historiques de NVIDIA).
 
 ---
 
-## Dataset — `NVDIA_historical_data.csv`
-Ce fichier contient des données boursières (série temporelle).  
-En général, on y retrouve les colonnes suivantes :
-- `Date` : date
-- `Open` : prix d’ouverture
-- `High` : plus haut
-- `Low` : plus bas
-- `Close` : prix de clôture
-- `Volume` : volume échangé
+## 3) Dataset — `NVDIA_historical_data.csv`
+### Description
+Le fichier contient une série temporelle boursière pour NVIDIA (NVDA), avec les colonnes suivantes :
+- `Date`
+- `Open` (ouverture)
+- `High` (plus haut)
+- `Low` (plus bas)
+- `Close` (clôture)
+- `Volume`
 
-> Remarque : selon la source d’export, le CSV peut parfois contenir des lignes d’en-tête/métadonnées en haut.  
-> Si tu as une erreur de lecture, adapte le chargement dans le notebook (ex: `skiprows`).
+**Période des données :** du `2020-11-20` au `2025-11-19`.
 
----
+### Important (format du CSV)
+Le CSV contient **3 lignes d’en-tête** (métadonnées).  
+Si tu le lis directement avec `pandas`, utilise `skiprows=3`.
 
-## Comment exécuter
-### Option 1 — Google Colab (simple)
-1. Ouvre le fichier **.ipynb** dans Colab
-2. Assure-toi que `NVDIA_historical_data.csv` est dans le même dossier (ou upload-le dans Colab)
-3. Exécute les cellules dans l’ordre
+Exemple :
 
-### Option 2 — En local (Jupyter)
-1. Installe les dépendances
-2. Lance Jupyter et ouvre le notebook
+```python
+import pandas as pd
 
----
+df = pd.read_csv(
+    "NVDIA_historical_data.csv",
+    skiprows=3,
+    names=["Date", "Close", "High", "Low", "Open", "Volume"]
+)
 
-## Dépendances (typiques)
-Le notebook utilise généralement :
-- `numpy`, `pandas`, `matplotlib`
-- `scikit-learn` (normalisation / split)
-- `tensorflow` / `keras` (modèle LSTM)
-- (optionnel) `yfinance` si les données sont téléchargées en ligne
+df["Date"] = pd.to_datetime(df["Date"])
+df = df.sort_values("Date")
+df.head()
+```
 
----
+4) Ce que fait le TP (résumé clair)
 
-## Ce que fait le TP (résumé clair)
-1. **Charge** les données (CSV local et/ou téléchargement)
-2. **Prépare** la série temporelle (ex: normalisation + création de fenêtres “timesteps”)
-3. **Entraîne** un modèle **LSTM**
-4. **Compare** prédictions vs valeurs réelles avec des graphiques
+Charge les données (depuis le CSV)
 
----
+Prépare la série temporelle (ex: normalisation + création de fenêtres temporelles)
 
-## Notes importantes
-- Travail **pédagogique** uniquement : **pas un conseil financier**.
-- Les résultats dépendent des hyperparamètres (fenêtre, epochs, batch size, etc.).
+Entraîne un modèle LSTM
 
----
+Affiche des graphiques et compare valeurs réelles vs prédictions
 
-## Auteur
-**Youssef BT** — TP réalisé **en cours avec le professeur** (non personnel)
+5) Exécution
+
+Option A — Google Colab (le plus simple)
+
+Ouvre LTSM_Scraping_Nvdia.ipynb dans Colab
+
+Upload NVDIA_historical_data.csv dans Colab (même dossier)
+
+Exécute les cellules dans l’ordre
+
+Option B — En local (Jupyter)
+
+Installer Jupyter :
+
+pip install notebook
+
+Lancer :
+
+jupyter notebook
+
+Ouvrir LTSM_Scraping_Nvdia.ipynb et exécuter les cellules
+
+6) Dépendances (typiques)
+
+Selon le notebook, tu peux avoir besoin de :
+
+numpy, pandas, matplotlib
+
+scikit-learn
+
+tensorflow / keras
+
+Installation (générale) :
+
+pip install numpy pandas matplotlib scikit-learn tensorflow
+
+7) Notes
+
+Travail pédagogique uniquement : ce n’est pas un conseil financier.
+
+Les résultats varient selon les hyperparamètres (fenêtre temporelle, epochs, batch size, etc.).
+
+8) Auteur
+
+Youssef BT — TP réalisé en cours avec le professeur (non personnel)
