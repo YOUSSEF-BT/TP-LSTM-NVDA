@@ -44,7 +44,7 @@ df = df.sort_values("Date")
 df.head()
 ```
 
-4) Ce que fait le TP (résumé clair)
+## 4) Ce que fait le TP (résumé clair)
 
 Charge les données (depuis le CSV)
 
@@ -54,7 +54,7 @@ Entraîne un modèle LSTM
 
 Affiche des graphiques et compare valeurs réelles vs prédictions
 
-5) Exécution
+## 5) Exécution
 
 Option A — Google Colab (le plus simple)
 
@@ -76,7 +76,7 @@ jupyter notebook
 
 Ouvrir LTSM_Scraping_Nvdia.ipynb et exécuter les cellules
 
-6) Dépendances (typiques)
+## 6) Dépendances (typiques)
 
 Selon le notebook, tu peux avoir besoin de :
 
@@ -90,12 +90,12 @@ Installation (générale) :
 
 pip install numpy pandas matplotlib scikit-learn tensorflow
 
-7) Notes
+## 7) Notes
 
 Travail pédagogique uniquement : ce n’est pas un conseil financier.
 
 Les résultats varient selon les hyperparamètres (fenêtre temporelle, epochs, batch size, etc.).
 
-8) Auteur
+## 8) Auteur
 
 Youssef BT — TP réalisé en cours avec le professeur (non personnel)
